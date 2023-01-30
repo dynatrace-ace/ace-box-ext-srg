@@ -1,2 +1,3 @@
 ---
-foo: "bar"
+gitlab_demo_default_group: "demo"
+gitlab_demo_default_repo_name: "srg"
