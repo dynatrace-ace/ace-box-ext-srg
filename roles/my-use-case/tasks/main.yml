@@ -46,7 +46,7 @@
     gitlab_prj: "{{ gitlab_demo_default_repo_name }}"
     gitlab_prj_namespace_id: "{{ gitlab_group_id }}"
 
-- name: Gitlab - Create variables
+- name: Gitlab - Add Group Variable
   include_role:
     name: gitlab
     tasks_from: ensure-group-var
