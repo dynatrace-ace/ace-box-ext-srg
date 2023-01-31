@@ -52,7 +52,7 @@
     tasks_from: ensure-group-var
   vars:
     gitlab_var_key: "AUTOMATION_TYPE" 
-    gitlab_var_value: "{{ automation_type }}""srg"  #srg/cloud-automation
+    gitlab_var_value: "{{ automation_type }}"
 
 - include_role:
     name: app-simplenode
