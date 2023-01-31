@@ -46,6 +46,14 @@
     gitlab_prj: "{{ gitlab_demo_default_repo_name }}"
     gitlab_prj_namespace_id: "{{ gitlab_group_id }}"
 
+- name: Gitlab - Create variables
+  include_role:
+    name: gitlab
+    tasks_from: ensure-group-var
+  vars:
+    gitlab_var_key: "AUTOMATION_TYPE" 
+    gitlab_var_value: "srg"  #srg/cloud-automation
+
 - include_role:
     name: app-simplenode
   vars:
