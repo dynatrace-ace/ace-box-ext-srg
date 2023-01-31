@@ -51,8 +51,10 @@
     name: gitlab
     tasks_from: ensure-group-var
   vars:
-    gitlab_var_key: "AUTOMATION_TYPE" 
-    gitlab_var_value: "{{ automation_type }}"
+    gitlab_var_key: "{{ item.key }}"
+    gitlab_var_value: "{{ item.value }}"
+  loop:
+    - { key: 'AUTOMATION_TYPE', value: '{{ automation_type }}' }
 
 - include_role:
     name: app-simplenode
