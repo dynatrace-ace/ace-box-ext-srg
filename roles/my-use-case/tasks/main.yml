@@ -54,6 +54,8 @@
     gitlab_var_key: "{{ item.key }}"
     gitlab_var_value: "{{ item.value }}"
   loop:
+    - { key: 'CLOUD_AUTOMATION_API_TOKEN', value: '{{ ca_api_token | default(None) }}' }
+    - { key: 'CLOUD_AUTOMATION_ENDPOINT', value: '{{ ca_endpoint | default(None) | replace("/api","") }}' }
     - { key: 'AUTOMATION_TYPE', value: '{{ automation_type | default("srg") }}' }
 
 - include_role:
