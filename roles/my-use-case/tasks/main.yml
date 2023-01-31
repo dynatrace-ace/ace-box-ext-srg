@@ -54,7 +54,7 @@
     gitlab_var_key: "{{ item.key }}"
     gitlab_var_value: "{{ item.value }}"
   loop:
-    - { key: 'AUTOMATION_TYPE', value: '{{ automation_type }}' }
+    - { key: 'AUTOMATION_TYPE', value: '{{ automation_type | default("srg") }}' }
 
 - include_role:
     name: app-simplenode
