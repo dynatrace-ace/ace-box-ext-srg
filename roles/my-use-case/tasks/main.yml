@@ -17,8 +17,8 @@
 - include_role:
     name: dt-operator
 
-# - include_role:
-#     name: monaco
+- include_role:
+    name: monaco
 
 # - include_role:
 #     name: keptn
