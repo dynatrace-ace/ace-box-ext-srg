@@ -1,0 +1,10 @@
+---
+- name: Build Monaco image
+  ansible.builtin.command: docker build -t localhost:32000/monaco:dev .
+  args:
+    chdir: "{{ role_path }}/files/"
+
+- name: Push Monaco image
+  ansible.builtin.command: docker push localhost:32000/monaco:dev
+  args:
+    chdir: "{{ role_path }}/files/"

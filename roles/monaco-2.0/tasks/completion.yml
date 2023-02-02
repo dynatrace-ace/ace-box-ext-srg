@@ -1,0 +1,22 @@
+---
+- name: Install bash-completion from apt
+  become: true
+  become_user: root
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+    - bash-completion
+
+- local_action: stat path=/etc/bash_completion.d/monaco
+  register: monaco_bash_completion
+  become: true
+  become_user: root
+
+- name: Generate Monaco bash auto completion
+  become: true
+  become_user: root
+  ansible.builtin.shell: "monaco completion bash > /etc/bash_completion.d/monaco"
+  when: not monaco_bash_completion.stat.exists

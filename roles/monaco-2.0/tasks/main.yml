@@ -1,0 +1,14 @@
+---
+- name: Setup Monaco CLI
+  become: true
+  become_user: root
+  ansible.builtin.copy:
+    src: monaco
+    dest: /usr/local/bin/monaco
+    owner: "{{ ace_box_user }}"
+    group: "{{ ace_box_user }}"
+    mode: "0555"
+
+- include_tasks: completion.yml
+
+- include_tasks: docker.yml
