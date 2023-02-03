@@ -17,22 +17,13 @@
 - include_role:
     name: dt-operator
 
-# - include_role:
-#     name: monaco
-
 - include_role:
     name: "monaco-2.0"
 
-# - include_role:
-#     name: keptn
-#   when: cloud_automation_flavor is defined and cloud_automation_flavor == "KEPTN"
-
-# - include_role:
-#     name: cloudautomation
-#   when: cloud_automation_flavor is defined and cloud_automation_flavor == "CLOUD_AUTOMATION"
-
 - include_role:
     name: gitlab
+  vars:
+    automation_type: "srg" #srg/cloud-automation
 
 - name: Gitlab - Ensure Group
   include_role:
