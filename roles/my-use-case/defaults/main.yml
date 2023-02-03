@@ -1,4 +1,3 @@
 ---
 gitlab_demo_default_group: "demo"
 gitlab_demo_default_repo_name: "srg"
-#automation_type: "srg" #srg/cloud-automation
