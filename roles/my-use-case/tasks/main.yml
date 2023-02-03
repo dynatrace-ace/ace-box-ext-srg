@@ -23,7 +23,7 @@
 - include_role:
     name: gitlab
   vars:
-    automation_type: "srg" #srg/cloud-automation
+    automation_type: "cloud-automation" #"srg" #srg/cloud-automation
 
 - name: Gitlab - Ensure Group
   include_role:
