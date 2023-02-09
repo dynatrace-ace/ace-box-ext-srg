@@ -2,3 +2,4 @@
 gitlab_demo_default_group: "demo"
 gitlab_demo_default_repo_name: "srg"
 automation_type: "srg"
+gitlab_srg_dt_access_token_name: "ace_box_gitlab_srg_api_token"
