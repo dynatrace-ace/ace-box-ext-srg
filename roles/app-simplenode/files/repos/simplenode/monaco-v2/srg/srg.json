@@ -1,0 +1,30 @@
+[
+    {
+      "value": {
+        "name": "{{ .name }}",
+        "objectives": [
+          {
+            "name": "Average CPU usage of process group instance",
+            "dqlQuery": "fetch metrics\n| filter contains(dt.host_group.id, \"ace-box\")\n| filter k8s.namespace.name == \"simplenode-gitlab-staging\"\n| filter contains(metric.key, \"dt.process.cpu.usage\")\n| summarize avg(value[avg]), alias:cpu_usage",
+            "comparisonOperator": "LESS_THAN_OR_EQUAL",
+            "target": 0.2,
+            "warning": 0.15
+          },
+          {
+            "name": "Average Memory usage of process group instance",
+            "dqlQuery": "fetch metrics\n| filter contains(dt.host_group.id, \"ace-box\")\n| filter k8s.namespace.name == \"simplenode-gitlab-staging\"\n| filter contains(metric.key, \"dt.process.mem.usage\")\n| summarize avg(value[avg]), alias:mem_usage",
+            "comparisonOperator": "LESS_THAN_OR_EQUAL",
+            "target": 0.3,
+            "warning": 0.25
+          },
+          {
+            "name": "Response Time of InvokeAPI Method",
+            "dqlQuery": "fetch logs\n| filter contains(dt.process.name, \"simplenodeservice.simplenode-gitlab-staging\")\n| filter contains (k8s.namespace.name, \"simplenode-gitlab-staging\")\n| filter not contains (content, \"/healtz\") AND not contains (content, \"/healthz\")\n| filter contains (content, \"/api/invoke\")\n| parse content, \"DATA 'rt:' SPACE? FLOAT:responsetime \"\n| filter isNotNull(responsetime)\n| summarize avg(responsetime), alias:response_time",
+            "comparisonOperator": "LESS_THAN_OR_EQUAL",
+            "target": 700,
+            "warning": 600
+          }
+        ]
+      }
+    }
+  ]

@@ -1,0 +1,12 @@
+config:
+    - management-zone-staging: "management-zone.json"
+    - management-zone-prod: "management-zone.json"
+
+management-zone-staging:
+    - environment: "simplenode-jenkins-staging"
+    - name: "simplenode-jenkins-staging"
+
+management-zone-prod:
+    - environment: "simplenode-jenkins-production"
+    - name: "simplenode-jenkins-production"
+

@@ -1,0 +1,46 @@
+
+init_cloudautomation:
+  image: dynatraceace/cloud-automation-tools:1.0.0
+  stage: init
+  variables:
+    CLOUD_AUTOMATION_PROJECT: simplenode-gitlab
+    CLOUD_AUTOMATION_SERVICE: simplenodeservice
+    CLOUD_AUTOMATION_STAGE: staging
+    CLOUD_AUTOMATION_SOURCE: gitlab
+    CLOUD_AUTOMATION_MONITORING: dynatrace
+    SHIPYARD_FILE: cloudautomation/shipyard.yaml
+    SLO_FILE: cloudautomation/slo.yaml
+    SLI_FILE: cloudautomation/sli.yaml
+    DT_CONFIG_FILE: cloudautomation/dynatrace.conf.yaml
+  script:
+    - /cloud_automation/cloud_automation_init.sh
+  artifacts:
+    paths:
+      - cloud_automation.init.json
+
+run-tests:
+  before_script:
+    - echo $(date --utc +%FT%T.000Z) > cloud_automation.test.starttime
+  after_script:
+    - echo $(date --utc +%FT%T.000Z) > cloud_automation.test.endtime
+  stage: test
+  variables:
+    LOCUST_LOCUSTFILE: locust/locustfile.py
+    LOCUST_CONFIG: locust/locust.conf
+    LOCUST_HOST: "http://simplenodeservice.$DT_RELEASE_STAGE"
+    LOCUST_LOAD_TEST_NAME: "Loadtest - $DT_RELEASE_BUILD_VERSION"
+  image: locustio/locust
+  script:
+    - locust --config $LOCUST_CONFIG --locustfile $LOCUST_LOCUSTFILE --host $LOCUST_HOST
+  artifacts:
+    paths:
+      - cloud_automation.test.starttime
+      - cloud_automation.test.endtime
+
+cloud_automation_quality_gate:
+  image: dynatraceace/cloud-automation-tools:1.0.0
+  stage: evaluate
+  script:
+    - export CLOUD_AUTOMATION_LABELS='[{"DT_RELEASE_VERSION":"'${DT_RELEASE_VERSION}'"},{"DT_RELEASE_BUILD_VERSION":"'${DT_RELEASE_BUILD_VERSION}'"},{"DT_RELEASE_STAGE":"'${DT_RELEASE_STAGE}'"},{"DT_RELEASE_PRODUCT":"'${DT_RELEASE_PRODUCT}'"}]'
+    - /cloud_automation/cloud_automation_eval.sh
+

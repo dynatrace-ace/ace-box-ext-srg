@@ -1,10 +1,12 @@
 ---
-- include_role:
+- name: Update cloud automation flavor
+  include_role:
     name: config-v2
     tasks_from: set-var
   vars:
-    var_key_to_set: "demo_site_reliability_guardians_gitlab"
-    var_value_to_set: true
+    var_key_to_set: "cloud_automation_flavor"
+    var_value_to_set: "SRG"
+
 
 - include_role:
     name: microk8s
@@ -22,8 +24,8 @@
 
 - include_role:
     name: gitlab
-  vars:
-    automation_type: "srg" #srg/cloud-automation
+  # vars:
+  #   automation_type: "srg" #srg/cloud-automation
 
 - name: Gitlab - Ensure Group
   include_role:
@@ -40,17 +42,16 @@
     gitlab_prj: "{{ gitlab_demo_default_repo_name }}"
     gitlab_prj_namespace_id: "{{ gitlab_group_id }}"
 
-# - name: Gitlab - Add Group Variable
-#   include_role:
-#     name: gitlab
-#     tasks_from: ensure-group-var
-#   vars:
-#     gitlab_var_key: "{{ item.key }}"
-#     gitlab_var_value: "{{ item.value }}"
-#   loop:
-#     - { key: 'CLOUD_AUTOMATION_API_TOKEN', value: '{{ ca_api_token | default(None) }}' }
-#     - { key: 'CLOUD_AUTOMATION_ENDPOINT', value: '{{ ca_endpoint | default(None) | replace("/api","") }}' }
-#     - { key: 'AUTOMATION_TYPE', value: '{{ automation_type | default("srg") }}' }
+- name: Gitlab - Create Automation Type Variable
+  include_role:
+    name: gitlab
+    tasks_from: ensure-group-var
+  vars:
+    gitlab_var_key: "{{ item.key }}"
+    gitlab_var_value: "{{ item.value }}"
+  loop:
+    - { key: 'AUTOMATION_TYPE', value: '{{ automation_type | default("srg") }}' }
+
 
 - include_role:
     name: app-simplenode

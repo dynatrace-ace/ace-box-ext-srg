@@ -1,0 +1,13 @@
+config:
+    - tagging-staging: "tagging.json"
+    - tagging-prod: "tagging.json"
+  
+tagging-staging:
+    - name: "simplenodeappsec-staging"
+    - namespace: "simplenodeappsec-staging"
+    - applicationName: "/simplenode-appsec/application/app-simplenode-staging.name"
+
+tagging-prod:
+    - name: "simplenodeappsec-prod"
+    - namespace: "simplenodeappsec-production"
+    - applicationName: "/simplenode-appsec/application/app-simplenode-prod.name"

@@ -1,0 +1,12 @@
+configs:
+  # srg
+
+  - id: simplenode-srg
+    type:
+      settings:
+        schema: app:dynatrace.site.reliability.guardian:guardians
+        scope: environment
+        schemaVersion: "0.0.4"
+    config:
+      name: "Simplenode Guardian - Monaco"
+      template: srg.json

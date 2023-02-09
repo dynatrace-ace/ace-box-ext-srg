@@ -1,0 +1,13 @@
+config:
+    - tagging-staging: "tagging.json"
+    - tagging-prod: "tagging.json"
+  
+tagging-staging:
+    - name: "simplenode-jenkins-staging"
+    - namespace: "simplenode-jenkins-staging"
+    - applicationName: "/simplenode/application/app-simplenode-staging.name"
+
+tagging-prod:
+    - name: "simplenode-jenkins-prod"
+    - namespace: "simplenode-jenkins-production"
+    - applicationName: "/simplenode/application/app-simplenode-prod.name"

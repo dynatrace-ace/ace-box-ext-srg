@@ -1,0 +1,15 @@
+manifest_version: "1.0"
+
+projects:
+  - name: srg
+    path: srg
+
+environments:
+  - group: default
+    entries:
+      - name: ace-box
+        url:
+          type: environment
+          value: DT_TENANT_URL
+        token:
+          name: DT_API_TOKEN

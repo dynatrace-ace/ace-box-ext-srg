@@ -1,0 +1,7 @@
+config:
+    - tagging-canary: "tagging.json"
+  
+tagging-canary:
+    - name: "ace-demo-canary"
+    - namespace: "canary"
+    - applicationName: "/canary/application/app-simplenode-canary.name"
