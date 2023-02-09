@@ -40,4 +40,4 @@ trigger_srg_and_receive_result:
     - eval_start=$(cat srg.test.starttime)
     - eval_end=$(cat srg.test.endtime)
     - export LOG_LEVEL=verbose
-    - /dt-automation-cli-linux srg-evaluation -u $DT_TENANT_URL -t $DT_API_TOKEN -w -s -st $eval_start -et $eval_end $GUARDIAN_NAME
+    - /dt-automation-cli-linux srg-evaluation -u $DT_TENANT_URL -t $DT_SRG_API_TOKEN -w -s -st $eval_start -et $eval_end $GUARDIAN_NAME

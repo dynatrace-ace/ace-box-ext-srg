@@ -42,6 +42,13 @@
     gitlab_prj: "{{ gitlab_demo_default_repo_name }}"
     gitlab_prj_namespace_id: "{{ gitlab_group_id }}"
 
+- include_role:
+    name: dt-access-token
+  vars:
+    access_token_var_name: "{{ gitlab_srg_dt_access_token_name }}"
+    access_token_scope: ["events.ingest", "events.read"]
+
+
 - name: Gitlab - Create Automation Type Variable
   include_role:
     name: gitlab
@@ -51,6 +58,7 @@
     gitlab_var_value: "{{ item.value }}"
   loop:
     - { key: 'AUTOMATION_TYPE', value: '{{ automation_type | default("srg") }}' }
+    - { key: 'DT_SRG_API_TOKEN', value: '{{ vars[gitlab_srg_dt_access_token_name] }}' }
 
 
 - include_role:
